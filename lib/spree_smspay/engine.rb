@@ -4,6 +4,8 @@ module SpreeSmspay
     isolate_namespace Spree
     engine_name 'spree_smspay'
 
+    config.autoload_paths += %W(#{config.root}/lib)
+
     # use rspec for tests
     config.generators do |g|
       g.test_framework :rspec
@@ -16,5 +18,9 @@ module SpreeSmspay
     end
 
     config.to_prepare &method(:activate).to_proc
+
+    initializer 'spree.smspay.payment_methods', :after => 'spree.register.payment_methods' do |app|
+      app.config.spree.payment_methods << Spree::Gateway::Smspay
+    end
   end
 end

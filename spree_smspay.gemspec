@@ -1,10 +1,15 @@
 # encoding: UTF-8
+lib = File.expand_path('../lib/', __FILE__)
+$:.unshift lib unless $:.include?(lib)
+
+require 'spree_smspay/version'
+
 Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.name        = 'spree_smspay'
-  s.version     = '2.4.2'
-  s.summary     = 'TODO: Add gem summary here'
-  s.description = 'TODO: Add (optional) gem description here'
+  s.version     = SpreeSmspay::VERSION
+  s.summary     = 'Adds Smspay as a Payment Method to Spree Commerce'
+  s.description = s.summary
   s.required_ruby_version = '>= 1.9.3'
 
   # s.author    = 'You'
@@ -17,6 +22,8 @@ Gem::Specification.new do |s|
   s.requirements << 'none'
 
   s.add_dependency 'spree_core', '~> 2.4.2'
+  s.add_dependency 'faraday'
+  s.add_dependency 'faraday_middleware'
 
   s.add_development_dependency 'capybara', '~> 2.4'
   s.add_development_dependency 'coffee-rails'
@@ -28,4 +35,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'selenium-webdriver'
   s.add_development_dependency 'simplecov'
   s.add_development_dependency 'sqlite3'
+  s.add_development_dependency 'pry'
 end
