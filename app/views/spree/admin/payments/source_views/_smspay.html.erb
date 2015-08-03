@@ -1,0 +1,14 @@
+<fieldset data-hook="smspay">
+  <legend align="center"><%= Spree.t(:transaction, :scope => :smspay) %></legend>
+  
+  <div class="row">
+    <div class="alpha six columns">
+      <dl>
+        <dt><%= Spree.t(:reference, :scope => :smspay) %></dt>
+        <dd><%= payment.source.smspay_checkouts.first.reference %></dd>
+        <dt><%= Spree.t(:mobile_number, :scope => :smspay) %></dt>
+        <dd><%= payment.source.mobile_number %></dd>
+      </dl>
+    </div>
+  </div>
+</fieldset>

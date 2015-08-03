@@ -37,7 +37,7 @@ module SpreeSmspay
 
     def payments(checkout, items)
       body = {
-        :phone => checkout.phone_number,
+        :phone => checkout.smspay_mobile_number.mobile_number,
         :invoice => "#{checkout.order.id}",
         :currency => "NOK",
         :merchant => @merchant_id,

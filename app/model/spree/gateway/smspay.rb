@@ -66,9 +66,8 @@ module Spree
 
       smspay = provider
       smspay_checkout = SmspayCheckout.create(
-              phone_code: smspay_mobile_number.number_code,
-              phone_number: smspay_mobile_number.number,
-              order: order)
+        smspay_mobile_number: smspay_mobile_number,         
+        order: order)
 
       if smspay.login
         if smspay.payments(smspay_checkout, items)
@@ -82,6 +81,11 @@ module Spree
             def authorization; nil; end
           end.new
         end
+      else
+        Class.new do
+          def success?; false; end
+          def authorization; nil; end
+        end.new
       end
     end
 

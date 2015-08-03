@@ -18,5 +18,6 @@ module Spree
   class SmspayCheckout < Spree::Base
     belongs_to :user
     belongs_to :order
+    belongs_to :smspay_mobile_number
   end
 end
