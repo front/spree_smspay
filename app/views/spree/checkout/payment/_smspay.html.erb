@@ -12,9 +12,3 @@
   ]) %>
   <%= text_field_tag "#{params_prefix}[number]" %>
 </p>
-
-<%= link_to "Confirm", smspay_path(payment_method_id: payment_method.id), id: 'smspay_confirm', class: 'button', method: :post %>
-
-<script>
-  SpreeSmspay.paymentMethodID = "<%= payment_method.id %>"  
-</script>
