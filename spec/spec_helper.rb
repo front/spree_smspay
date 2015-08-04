@@ -1,13 +1,14 @@
-# Run Coverage report
-require 'simplecov'
-SimpleCov.start do
-  add_filter 'spec/dummy'
-  add_group 'Controllers', 'app/controllers'
-  add_group 'Helpers', 'app/helpers'
-  add_group 'Mailers', 'app/mailers'
-  add_group 'Models', 'app/models'
-  add_group 'Views', 'app/views'
-  add_group 'Libraries', 'lib'
+if ENV["COVERAGE"]
+  require_relative 'rcov_exclude_list.rb'
+  exlist = Dir.glob(@exclude_list)
+  require 'simplecov'
+  require 'simplecov-rcov'
+  SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
+  SimpleCov.start do
+    exlist.each do |p|
+      add_filter p
+    end
+  end
 end
 
 # Configure Rails Environment
@@ -18,6 +19,15 @@ require File.expand_path('../dummy/config/environment.rb',  __FILE__)
 require 'rspec/rails'
 require 'database_cleaner'
 require 'ffaker'
+require 'pry'
+require 'capybara/rspec'
+require 'capybara/rails'
+require 'capybara-screenshot/rspec'
+
+require 'capybara/poltergeist'
+
+Capybara.javascript_driver = :poltergeist
+Capybara.default_wait_time = 15
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -46,6 +56,7 @@ RSpec.configure do |config|
   # visit spree.admin_path
   # current_path.should eql(spree.products_path)
   config.include Spree::TestingSupport::UrlHelpers
+  config.include Spree::TestingSupport::AuthorizationHelpers::Controller
 
   # == Mock Framework
   #
@@ -83,5 +94,8 @@ RSpec.configure do |config|
   end
 
   config.fail_fast = ENV['FAIL_FAST'] || false
-  config.order = "random"
+end
+
+if ENV["COVERAGE"]
+  require_all(Dir.glob('**/*.rb') - exlist)
 end

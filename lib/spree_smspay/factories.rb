@@ -3,4 +3,11 @@ FactoryGirl.define do
   #
   # Example adding this to your spec_helper will load these Factories for use:
   # require 'spree_smspay/factories'
+
+  factory :smspay_mobile_number, class: Spree::SmspayMobileNumber do
+      code "45"
+      number "12345678910"
+      association(:user, factory: :user)
+      default false
+  end
 end
