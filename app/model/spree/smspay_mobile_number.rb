@@ -19,5 +19,9 @@ module Spree
     def imported
       false
     end
+
+    def mobile_number
+      "#{code}#{number}".to_i
+    end
   end
 end

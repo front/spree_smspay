@@ -53,7 +53,7 @@ module SpreeSmspay
         req.headers['Authorization'] = @token
         req.body = body
       end
-
+      
       if payment.status == 200 && payment.body.present?
         checkout.reference = payment.body['reference']
         checkout.status = payment.body['status']

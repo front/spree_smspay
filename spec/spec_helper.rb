@@ -1,14 +1,13 @@
-if ENV["COVERAGE"]
-  require_relative 'rcov_exclude_list.rb'
-  exlist = Dir.glob(@exclude_list)
-  require 'simplecov'
-  require 'simplecov-rcov'
-  SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-  SimpleCov.start do
-    exlist.each do |p|
-      add_filter p
-    end
-  end
+# Run Coverage report
+require 'simplecov'
+SimpleCov.start do
+  add_filter 'spec/dummy'
+  add_group 'Controllers', 'app/controllers'
+  add_group 'Helpers', 'app/helpers'
+  add_group 'Mailers', 'app/mailers'
+  add_group 'Models', 'app/models'
+  add_group 'Views', 'app/views'
+  add_group 'Libraries', 'lib'
 end
 
 # Configure Rails Environment
@@ -45,6 +44,7 @@ require 'spree_smspay/factories'
 
 RSpec.configure do |config|
   config.include FactoryGirl::Syntax::Methods
+  config.include Capybara::DSL
 
   # Infer an example group's spec type from the file location.
   config.infer_spec_type_from_file_location!
@@ -94,8 +94,4 @@ RSpec.configure do |config|
   end
 
   config.fail_fast = ENV['FAIL_FAST'] || false
-end
-
-if ENV["COVERAGE"]
-  require_all(Dir.glob('**/*.rb') - exlist)
 end
