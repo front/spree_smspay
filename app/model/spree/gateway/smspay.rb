@@ -38,14 +38,14 @@ module Spree
     end
 
     def auto_capture?
-      true
+      false
     end
 
     def method_type
       'smspay'
     end
 
-    def purchase(amount, smspay_mobile_number, gateway_options = {})
+    def authorize(amount, smspay_mobile_number, gateway_options = {})
       order_number = gateway_options[:order_id].split('-').first
       order = Order.where(number: order_number).first
       items = build_items(order.line_items)
