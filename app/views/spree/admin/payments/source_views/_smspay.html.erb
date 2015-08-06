@@ -5,7 +5,7 @@
     <div class="alpha six columns">
       <dl>
         <dt><%= Spree.t(:reference, :scope => :smspay) %></dt>
-        <dd><%= payment.source.smspay_checkouts.first.reference %></dd>
+        <dd><%= payment.transaction_id %></dd>
         <dt><%= Spree.t(:mobile_number, :scope => :smspay) %></dt>
         <dd><%= payment.source.mobile_number %></dd>
       </dl>
