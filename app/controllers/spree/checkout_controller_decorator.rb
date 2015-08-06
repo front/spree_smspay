@@ -5,7 +5,7 @@ module Spree
     private
 
     def permit_smspay_attributes
-      [:number_code, :number].each do |attr|
+      [:code, :number].each do |attr|
         unless permitted_source_attributes.include?(attr)
           permitted_source_attributes << attr
         end

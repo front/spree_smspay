@@ -21,7 +21,7 @@ module Spree
     end
 
     def mobile_number
-      "#{code}#{number}".to_i
+      "#{code}#{number}"
     end
   end
 end
