@@ -1,0 +1,19 @@
+---
+en:
+  spree:
+    smspay:
+      no_payment_via_admin_backend: "You cannot charge Smspay accounts through the admin backend at this time."
+      transaction: "Smspay Transaction"
+      payer_id: "Payer ID"
+      transaction_id: "Transaction ID"
+      title: "Tittel"
+      description: "Beskrivelse"
+      username: "Brukernavn"
+      password: "Passord"
+      mobile_number: "Mobilnr."
+      token: "Token"
+      actions:
+      flash:
+        cancel: "Don't want to use Smspay? No problems."
+        connection_failed: "Could not connect to Smspay."
+        generic_error: "Smspay failed. %{reasons}"

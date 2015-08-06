@@ -13,7 +13,6 @@ module SpreeSmspay
         conn.request :url_encoded
         conn.response :logger
         conn.response :json, :content_type => /\bjson$/
-          # conn.response :json, :content_type => /\bjson$/
         conn.adapter Faraday.default_adapter
       end
     end

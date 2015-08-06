@@ -29,32 +29,5 @@ module Spree
         end
       end
     end
-
-    private
-
-    def payment_method
-      Spree::PaymentMethod.find(params[:payment_method_id])
-    end
-
-    def provider
-      payment_method.provider
-    end
-
-    def build_item(line_items)
-      items = {}
-      line_items.each_with_index do |item, i|
-        items["item_number_#{i+1}".to_sym] = item.variant.sku
-        items["item_name_#{i+1}".to_sym] = item.product.name
-        items["quantity_#{i+1}".to_sym] = item.quantity
-        items["amount_#{i+1}".to_sym] = item.price.to_s
-        items["shipping_#{i+1}".to_sym] = 0
-      end
-      items
-    end
-
-    def completion_route(order)
-      order_path(order)
-    end
-
   end
 end
