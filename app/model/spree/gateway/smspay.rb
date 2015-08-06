@@ -47,6 +47,7 @@ module Spree
 
     def authorize(amount, smspay_mobile_number, gateway_options = {})
       order_number = gateway_options[:order_id].split('-').first
+      payment_idetifier = gateway_options[:order_id].split('-').last
       order = Order.where(number: order_number).first
       items = build_items(order.line_items)
 
@@ -70,23 +71,44 @@ module Spree
         order: order)
 
       if smspay.login
-        if smspay.payments(smspay_checkout, items)
-          Class.new do
-            def success?; true; end
-            def authorization; nil; end
-          end.new
+        response = smspay.payments(smspay_checkout, items)
+        if response.status == 200
+          smspay_checkout.reference = response.body['reference']
+          smspay_checkout.status = response.body['status']
+          payment = Payment.find_by(:identifier => payment_idetifier)
+          payment.response_code = response.body['reference']
+          # Update payment state
+          case response.body['status']
+          when 'NEW'
+            payment.started_processing
+          when 'PENDING'
+            payment.pend
+          when 'CANCELLED'
+            payment.failure
+          when 'COMPLETE'
+            payment.complete
+          when 'PROCESSING'
+            payment.started_processing
+          end
+
+          if smspay_checkout.save && payment.save
+           return Class.new do
+              def success?; true; end
+              def authorization; nil; end
+            end.new
+          end
         else
-          Class.new do
+          return Class.new do
             def success?; false; end
             def authorization; nil; end
           end.new
         end
-      else
-        Class.new do
-          def success?; false; end
-          def authorization; nil; end
-        end.new
       end
+
+      Class.new do
+        def success?; false; end
+        def authorization; nil; end
+      end.new
     end
 
     private
