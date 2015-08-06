@@ -1,5 +1,5 @@
 ---
-en:
+nb:
   spree:
     smspay:
       no_payment_via_admin_backend: "You cannot charge Smspay accounts through the admin backend at this time."
