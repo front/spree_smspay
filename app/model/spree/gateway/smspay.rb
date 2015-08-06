@@ -85,7 +85,7 @@ module Spree
             payment.pend
           when 'CANCELLED'
             payment.failure
-          when 'COMPLETE'
+          when 'COMPLETED'
             payment.complete
           when 'PROCESSING'
             payment.started_processing
