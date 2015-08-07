@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Spree::Gateway::Smspay do
   let(:gateway) { Spree::Gateway::Smspay.create!(:name => "Smspay", :environment => Rails.env) }
 
-  context "payment purchase" do
+  context "payment authorize" do
     let(:payment) do
       payment = FactoryGirl.create(:payment, :payment_method => gateway, :amount => 10)
       mobile_number = FactoryGirl.create(:smspay_mobile_number)
@@ -18,12 +18,17 @@ describe Spree::Gateway::Smspay do
     end
 
     before do
-      expect(provider).to receive(:login).and_return(true)
+      allow(provider).to receive(:login).and_return(true)
+      allow(provider).to receive(:payments).and_return(
+        double(status: 200, body: {
+          'reference' => '12345678',
+          'status'=> 'NEW'
+        })
+      )
     end
 
     it "succeeds" do
-      expect(provider).to receive(:payments).and_return(true)
-      expect{ payment.purchase! }.to_not raise_error
+      expect{ payment.authorize! }.to_not raise_error
     end
   end
 end
