@@ -10,4 +10,12 @@ FactoryGirl.define do
       association(:user, factory: :user)
       default false
   end
+
+  factory :smspay_checkout, class: Spree::SmspayCheckout do
+    reference "12345678"
+    amount "20"
+    status "NEW"
+    order
+    smspay_mobile_number
+  end
 end
