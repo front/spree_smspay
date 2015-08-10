@@ -2,20 +2,16 @@
 en:
   spree:
     smspay:
-      already_refunded: "This payment has been refunded and no further action can be taken on it."
       no_payment_via_admin_backend: "You cannot charge Smspay accounts through the admin backend at this time."
       transaction: "Smspay Transaction"
-      payer_id: "Payer ID"
-      transaction_id: "Transaction ID"
-      token: "Token"
-      refund: "Refund"
-      refund_amount: "Amount"
-      original_amount: "Original amount: %{amount}"
-      refund_successful: "Smspay refund successful"
-      refund_unsuccessful: "Smspay refund unsuccessful"
-      actions:
-        refund: "Refund"
+      reference: 'Reference'
+      mobile_number: 'Mobile Number'
       flash:
         cancel: "Don't want to use Smspay? No problems."
         connection_failed: "Could not connect to Smspay."
         generic_error: "Smspay failed. %{reasons}"
+
+    title: "Title"
+    description: 'Description'
+    merchant_name: 'Merchant Name'
+    merchant_password: 'Merchant Password'

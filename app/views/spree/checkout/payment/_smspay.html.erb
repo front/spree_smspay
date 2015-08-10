@@ -3,7 +3,7 @@
 <%= image_tag('smspay-logo.png', width: 75) %>
 
 <p class="field" data-hook="smspay_phone_number">
-  <%= label_tag "Phone", Spree.t(:phone) %><span class="required">*</span>
+  <%= label_tag "Phone", Spree.t(:mobile_number, :scope => 'smspay') %><span class="required">*</span>
   <%= select_tag "#{params_prefix}[code]", options_for_select([
     ['+47', 47],
     ['+40', 40],
