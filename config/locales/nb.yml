@@ -4,6 +4,12 @@ nb:
     attributes:
       spree/smspay_mobile_number:
         number: "Mobilnr."
+    errors:
+      models:
+        spree/smspay_mobile_number:
+          attributes:
+            number:
+              invalid_mobile_number: "SMSpay telefonnummer er ikke godkjent."
   spree:
     smspay:
       no_payment_via_admin_backend: "You cannot charge Smspay accounts through the admin backend at this time."

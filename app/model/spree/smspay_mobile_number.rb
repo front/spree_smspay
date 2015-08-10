@@ -16,6 +16,7 @@ module Spree
 
     validates :code, :presence => true
     validates :number, :presence => true
+    validate  :mobile_number_must_have_valid_length
 
     belongs_to :user, class_name: Spree.user_class, foreign_key: 'user_id'
     has_many :payments, as: :source
@@ -26,6 +27,12 @@ module Spree
 
     def mobile_number
       "#{code}#{number}"
+    end
+
+    def mobile_number_must_have_valid_length
+      if mobile_number.to_i < 1000000000
+        errors.add(:number, :invalid_mobile_number)
+      end
     end
   end
 end
