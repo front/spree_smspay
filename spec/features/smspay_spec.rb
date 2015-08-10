@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe "Smspay", :js => true do
   let!(:product) { FactoryGirl.create(:product, :name => 'iPad') }
   before do
@@ -24,7 +26,7 @@ describe "Smspay", :js => true do
       fill_in "Street Address", :with => "1 User Lane"
       fill_in "City", :with => "Adamsville"
       select "United States of America", :from => "order_bill_address_attributes_country_id"
-      # select "Alabama", :from => "order_bill_address_attributes_state_id"
+      select "Alabama", :from => "order_bill_address_attributes_state_id"
       fill_in "Zip", :with => "35005"
       fill_in "Phone", :with => "555-123-4567"
     end
