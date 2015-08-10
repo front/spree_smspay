@@ -1,5 +1,9 @@
 ---
 nb:
+  activerecord:
+    attributes:
+      spree/smspay_mobile_number:
+        number: "Mobilnr."
   spree:
     smspay:
       no_payment_via_admin_backend: "You cannot charge Smspay accounts through the admin backend at this time."
@@ -11,6 +15,7 @@ nb:
         connection_failed: "Could not connect to Smspay."
         generic_error: "Smspay failed. %{reasons}"
 
+    smspay_mobile_number: "Smspay Mobile Number"
     title: "Tittel"
     description: "Beskrivelse"
     merchant_user: "Brukernavn"

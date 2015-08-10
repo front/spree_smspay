@@ -13,6 +13,10 @@
 
 module Spree
   class SmspayMobileNumber < Spree::Base
+
+    validates :code, :presence => true
+    validates :number, :presence => true
+
     belongs_to :user, class_name: Spree.user_class, foreign_key: 'user_id'
     has_many :payments, as: :source
 
