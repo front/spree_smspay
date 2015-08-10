@@ -18,26 +18,24 @@ module SpreeSmspay
     end
 
     def login
-      login = @conn.post do |req|
+      response = @conn.post do |req|
         req.url '/v1/login'
         req.body = {
           user: options[:user],
           password: options[:password]
         }
       end
-      if login.status == 200 && login.body.present?
-        @merchant_id = login.body['merchantId']
-        @token = "Bearer #{login.body['token']}"
-        true
-      else
-        false
+      if response.status == 200 && response.body.present?
+        @merchant_id = response.body['merchantId']
+        @token = "Bearer #{response.body['token']}"
       end
+      response
     end
 
-    def payments(checkout, items)
+    def payments(mobile_number, order_id, items)
       body = {
-        :phone => checkout.smspay_mobile_number.mobile_number,
-        :invoice => "#{checkout.order.id}",
+        :phone => mobile_number,
+        :invoice => "#{order_id}",
         :currency => "NOK",
         :merchant => @merchant_id,
         :description => options[:description],
@@ -45,7 +43,6 @@ module SpreeSmspay
         :success_url => options[:success_url],
         :failure_url => options[:failure_url]
       }
-
       body = body.merge(items)
       payment = @conn.post do |req|
         req.url '/v1/payments'
