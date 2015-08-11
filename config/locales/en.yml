@@ -1,6 +1,9 @@
 ---
 en:
   activerecord:
+    attributes:
+      spree/smspay_mobile_number:
+        number: "Mobile Number"
     errors:
       models:
         spree/smspay_mobile_number:
@@ -19,6 +22,7 @@ en:
         connection_failed: "Could not connect to Smspay."
         generic_error: "Smspay failed. %{reasons}"
 
+    smspay_mobile_number: "Smspay Mobile Number"
     title: "Title"
     description: 'Description'
     merchant_name: 'Merchant Name'
