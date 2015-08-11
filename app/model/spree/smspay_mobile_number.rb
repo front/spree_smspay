@@ -30,7 +30,7 @@ module Spree
     end
 
     def mobile_number_must_have_valid_length
-      if mobile_number.to_i < 1000000000
+      if number.present? && mobile_number.to_i < 1000000000
         errors.add(:number, :invalid_mobile_number)
       end
     end
