@@ -13,7 +13,7 @@
 #
 
 module Spree
-  class SmspayCheckout < Spree::Base
+  class SmspayCheckout < ActiveRecord::Base
     belongs_to :user
     belongs_to :order
     belongs_to :smspay_mobile_number, class_name: 'Spree::SmspayMobileNumber', foreign_key: :smspay_mobile_number_id

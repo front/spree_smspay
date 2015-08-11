@@ -12,7 +12,7 @@
 #
 
 module Spree
-  class SmspayMobileNumber < Spree::Base
+  class SmspayMobileNumber < ActiveRecord::Base
 
     validates :code, :presence => true
     validates :number, :presence => true
