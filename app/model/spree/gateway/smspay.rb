@@ -5,6 +5,9 @@ module Spree
     preference :success_url, :string, default: 'http://example.com/smspay/success'
     preference :failure_url, :string, default: 'http://example.com/smspay/failure'
 
+    attr_accessible :preferred_merchant_user, :preferred_merchant_password, 
+                    :preferred_success_url, :preferred_failure_url
+
     def payment_source_class
       SmspayMobileNumber
     end
@@ -56,12 +59,11 @@ module Spree
       @order = Order.where(number: order_number).first
       items = build_items(@order.line_items)
 
-      additional_adjustments = @order.all_adjustments.additional
-      tax_adjustments = additional_adjustments.tax
-      shipping_adjustments = additional_adjustments.shipping
+      tax_adjustments = @order.adjustments.tax
+      shipping_adjustments = @order.adjustments.shipping
 
-      additional_adjustments.eligible.each do |adjustment|
-        next if tax_adjustments.include?(adjustment) || shipping_adjusmtents.include?(adjustment)
+      @order.adjustments.eligible.each do |adjustment|
+        next if tax_adjustments.include?(adjustment) || shipping_adjustments.include?(adjustment)
 
         items["item_number_#{i+1}".to_sym] = adjustment.id
         items["item_name_#{i+1}".to_sym] = adjustment.label
@@ -116,11 +118,11 @@ module Spree
 
       if success && action == 'payments'
         smspay_checkout = SmspayCheckout.create(
-          smspay_mobile_number: @smspay_mobile_number,
-          order: @order)
+          smspay_mobile_number_id: @smspay_mobile_number.id,
+          order_id: @order.id)
         smspay_checkout.reference = response.body['reference']
         smspay_checkout.status = response.body['status']
-        payment = Payment.find_by(:identifier => payment_idetifier)
+        payment = Payment.find_by_identifier(payment_idetifier)
         payment.response_code = response.body['reference']
 
         case response.body['status']

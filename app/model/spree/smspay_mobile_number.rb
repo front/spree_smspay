@@ -14,6 +14,8 @@
 module Spree
   class SmspayMobileNumber < ActiveRecord::Base
 
+    attr_accessible :code, :number, :user_id, :default
+
     validates :code, :presence => true
     validates :number, :presence => true
     validate  :mobile_number_must_have_valid_length
