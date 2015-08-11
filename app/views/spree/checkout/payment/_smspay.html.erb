@@ -1,14 +1,19 @@
 <% params_prefix = "payment_source[#{payment_method.id}]" %>
 
-<%= image_tag('smspay-logo.png', width: 75) %>
+<div class="well clearfix form-inline">
 
-<p class="field" data-hook="smspay_phone_number">
-  <%= label_tag "Phone", Spree.t(:mobile_number, :scope => 'smspay') %><span class="required">*</span>
-  <%= select_tag "#{params_prefix}[code]", options_for_select([
-    ['+47', 47],
-    ['+40', 40],
-    ['+46', 46],
-    ['+351', 35]
-  ]) %>
-  <%= text_field_tag "#{params_prefix}[number]" %>
-</p>
+  <%= image_tag('smspay-logo.png', width: 75) %>
+
+  <p class="field" data-hook="smspay_phone_number">
+    <%= label_tag "Phone", Spree.t(:mobile_number, :scope => 'smspay') %><span class="required">*</span>
+    <%= select_tag "#{params_prefix}[code]", options_for_select([
+      ['+47', 47],
+      ['+40', 40],
+      ['+46', 46],
+      ['+351', 35]
+    ]), class: 'form-control required' %>
+    <%= text_field_tag "#{params_prefix}[number]", '', class: "form-control required" %>
+  </p>
+  
+</div>
+
