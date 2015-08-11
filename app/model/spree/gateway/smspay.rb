@@ -1,7 +1,5 @@
 module Spree
   class Gateway::Smspay < Gateway
-    preference :title, :string
-    preference :description, :string
     preference :merchant_user, :string
     preference :merchant_password, :string
     preference :success_url, :string, default: 'http://example.com/smspay/success'
@@ -24,7 +22,7 @@ module Spree
 
     def provider
       ::SpreeSmspay::Api.new(
-        description: preferred_description,
+        description: description,
         user: preferred_merchant_user,
         password: preferred_merchant_password,
         base_url: base_url,
@@ -140,7 +138,6 @@ module Spree
         smspay_checkout.save
         payment.save
       end
-
       ActiveMerchant::Billing::Response.new(
         success,
         success ? "Transaction approved" : response.body['error']['message'],
